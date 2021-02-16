@@ -5,7 +5,6 @@ import math as m
 
 size = [10,50,1000]
 
-NORMAL, CAUCHY, LAPLACE, POISSON, UNIFORM = "NormalNumber", "CauchyNumber", "LaplaceNumber", "PoissonNumber", "UniformNumber"
 LINE_TYPE = 'k--'
 
 #density - плотность
