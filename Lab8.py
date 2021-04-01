@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 from scipy import signal
 import math as m
 
-NUM = 543  # номер сигнала с 0 нумерация сигналов
+NUM = 2  # номер сигнала с 0 нумерация сигналов
 MXXIV = 1024  # вообще, так лучше не делать, но кто это будет читать?)
 MAX_SPLIT = 40
 #находит индексы элементов в определённых границах
