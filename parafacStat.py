@@ -52,7 +52,7 @@ def show_data(x,y,z,fig):
 def erase_first_line(x,y,z):
     delt2 = 20
     for i in range(len(x)):
-        deg = 5
+        deg = 1
         # plt.plot(y,z[i], "r.",label="data")
         # print(x[i],y[i]+ i)
         # тут используется y = x
@@ -62,7 +62,7 @@ def erase_first_line(x,y,z):
         if (y[i] + i - delt2 >= 250):
             ind.append(np.where(np.logical_and(y >= 250, y <= y[i] + i - delt2))[0])
         else:
-            deg = 2
+            deg = 1
             delt2 = 20
         # правый конец
         ind.append(np.where(np.logical_and(y >= y[i] + i + delt2, y <= y[i] + i + 2 * delt2))[0])
@@ -91,7 +91,7 @@ def erase_second_line(x,y,z):
     for i in range(len(x)):
         if x[i] == 312:
             break
-        deg = 5
+        deg = 1
 
         # plt.plot(y,z[i], "r.",label="data")
 
@@ -166,8 +166,8 @@ delt = 50
 #кто-то где-то потерялся мб, но размеры вроде совпадают
 default_way = "C:\\Users\\Tatiana\\Desktop\\ToBazhenov\\VD_DOM_Permafrost\\"
 #4, 9,
-#names = ["1701", "1702","1704","1706","1708_1to10","1708_1to20", "1711", "1712","1727", "1729","1730","1732", "1733","1734"]
-names = ["1701", "1702","1704", "1711", "1729"]
+names = ["1701", "1702","1704","1706","1708_1to10","1708_1to20", "1711", "1712","1727", "1729","1730","1732", "1733","1734"]
+#names = ["1701", "1702","1704", "1711", "1729"]
 tens = []
 x = 0
 y = 0
@@ -183,15 +183,27 @@ for i in range(len(names)):
 
 #plt.show()
 # получение факторв
-rank = 6
-factors = decomp.parafac2(np.array(tens),rank,normalize_factors=True)
-fig = plt.figure(figsize=(5, 5))
-print(factors[0])
-for i in range(rank):
-    z_f1 = np.transpose(factors[1][2])[i]
-    plt.plot(y,z_f1)
+rank = 12
+for rank in range(15,16,1):
+    factors = decomp.non_negative_parafac(np.array(tens),rank, n_iter_max=2000, tol=1e-6)
+    fig = plt.figure(figsize=(5, 5))
+    print(factors[0])
+    plt.subplot(311)
+    for i in range(rank):
+        z_f1 = np.transpose(factors[1][0])[i]
+        plt.plot(np.linspace(1,len(names),len(names),endpoint=True),z_f1)
 
-plt.show()
+    plt.subplot(312)
+    for i in range(rank):
+        z_f1 = np.transpose(factors[1][1])[i]
+        plt.plot(x,z_f1)
+
+    plt.subplot(313)
+    for i in range(rank):
+        z_f1 = np.transpose(factors[1][2])[i]
+        plt.plot(y,z_f1)
+    plt.show()
+    #plt.savefig("parafac"+str(rank) +".png")
 #show_proj(factors, x, 1, 3)
 
 # print all data
