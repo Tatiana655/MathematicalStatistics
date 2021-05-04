@@ -168,7 +168,7 @@ default_way = "C:\\Users\\Tatiana\\Desktop\\ToBazhenov\\VD_DOM_Permafrost\\"
 #4, 9,
 names = ["1701", "1702","1704","1706","1708_1to10","1708_1to20", "1711", "1712","1727", "1729","1730","1732", "1733","1734"]
 #names = ["1701", "1702","1704", "1711", "1729"]
-tens = []
+tensor_data = []
 x = 0
 y = 0
 delt1 = 10
@@ -179,13 +179,13 @@ for i in range(len(names)):
     z = erase_second_line(x, y, z)
     #fig = plt.figure(figsize=(5, 5))
     #show_data(x, y, z, fig)
-    tens.append(z)
+    tensor_data.append(z)
 
 #plt.show()
 # получение факторв
 rank = 12
 for rank in range(15,16,1):
-    factors = decomp.non_negative_parafac(np.array(tens),rank, n_iter_max=2000, tol=1e-6)
+    factors = decomp.non_negative_parafac(np.array(tensor_data),rank, n_iter_max=2000, tol=1e-6)
     fig = plt.figure(figsize=(5, 5))
     print(factors[0])
     plt.subplot(311)
